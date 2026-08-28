@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#1f5f4f" />
+    <meta name="description" content="Compagnon du cours de finances personnelles. Vos donnees restent sur votre appareil." />
+    <!-- L'app est reservee au groupe : elle se partage par son lien, jamais
+         par un moteur de recherche. Ne pas la referencer non plus depuis les
+         menus ou le plan du site de l'hebergeur. -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!--
+      LA PROMESSE, RENDUE IMPOSSIBLE A ENFREINDRE
+
+      L'app affirme ne joindre aucun serveur. Cette politique de securite
+      transforme cette affirmation en contrainte technique : le navigateur
+      LUI-MEME bloque toute tentative de connexion sortante.
+
+      `connect-src 'self'` est la ligne essentielle. Si une bibliotheque tentait
+      un jour de telecharger quelque chose depuis un CDN — ce que tesseract.js
+      fait par defaut — la requete serait refusee et visible dans la console,
+      au lieu de passer inapercue.
+
+      Les autorisations restantes sont le strict necessaire :
+        script blob:            les moteurs OCR et PDF s'executent dans un worker
+        wasm-unsafe-eval        Tesseract est compile en WebAssembly
+        img data: blob:         photos de tickets et rendus de canvas
+        style 'unsafe-inline'   styles en ligne de React
+        form-action 'none'      aucun formulaire ne peut etre soumis ailleurs
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        connect-src 'self' blob: data:;
+        script-src 'self' 'wasm-unsafe-eval' blob:;
+        worker-src 'self' blob:;
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: blob:;
+        font-src 'self';
+        object-src 'none';
+        base-uri 'self';
+        form-action 'none';
+      "
+    />
+    <!--
+      `frame-ancestors 'none'` manque volontairement : les navigateurs
+      l'ignorent dans une balise meta (avec un avertissement en console).
+      Pour empecher l'app d'etre affichee dans une iframe, ajoutez l'en-tete
+      HTTP `X-Frame-Options: DENY` cote hebergement, si celui-ci le permet.
+    -->
+
+    <!-- iOS : ces balises font que l'app s'ouvre en plein ecran une fois
+         ajoutee a l'ecran d'accueil, sans la barre d'adresse de Safari. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Steward" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+
+    <title>Steward</title>
+    <script type="module" crossorigin src="./assets/index-BhU3tpPF.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/db-BR4HZRbk.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-D6TU4C37.css">
+  <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
